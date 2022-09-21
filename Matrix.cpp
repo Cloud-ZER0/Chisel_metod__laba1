@@ -88,7 +88,7 @@ std::vector<double> Matrix::Kholetskiy() {
 			mtr[pos2].at(pos1) /= val;
 		}
 	};
-	decl(1, 0, mtr[0].at(0)); // 1 raw
+	decl(1, 0, mtr[0].at(0)); 
 
 	for (std::size_t i = 1; i < sz; ++i) {
 		for (std::size_t j = 1; j < sz; ++j) {
@@ -99,10 +99,9 @@ std::vector<double> Matrix::Kholetskiy() {
 			mtr[i].at(j) -= mtr[i].at(0) * mtr[0].at(j);
 		}
 		if (i + 1 < sz) {
-			decl(i + 1, i, mtr[i].at(i)); // 2raw
+			decl(i + 1, i, mtr[i].at(i)); 
 		}
 	}
-	//decl(2, 1, mtr[1].at(1)); //2 raw
 
 
 	Matrix C(*this);
