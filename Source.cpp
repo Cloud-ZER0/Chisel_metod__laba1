@@ -6,8 +6,10 @@ int main() {
 	std::vector<double> f{ 30.74, 36.80, 40.79 };
 	m.add_free(std::move(f));
 	auto res = m.Gaus();
+	int x = 1;
 	for (auto i : res) {
-		std::cout << i << ' ';
+		std::cout <<"x" << x << '=' << i << '\n';
+		++x;
 	}
 	return 0;
 }
