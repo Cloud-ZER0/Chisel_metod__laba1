@@ -70,12 +70,12 @@ std::vector<double> Matrix::Gaus() {
 	}
 
 	decl(1);
-	helper(0, 1, mtr[0].at(1));
-	helper(2, 1, mtr[2].at(1), true);
+	helper(0, 1, mtr[0].at(1), ((mtr[0].at(1)) > 0 ? false : true));
+	helper(2, 1, mtr[2].at(1), ((mtr[2].at(1)) > 0 ? false : true)); //true
 
 	decl(2);
-	helper(0, 2, mtr[0].at(2));
-	helper(1, 2, mtr[1].at(2));
+	helper(0, 2, mtr[0].at(2), ((mtr[0].at(2)) > 0 ? false : true)); // true
+	helper(1, 2, mtr[1].at(2), ((mtr[1].at(2)) > 0 ? false : true));
 
 	return std::vector<double>{mtr[0].at(3), mtr[1].at(3), mtr[2].at(3)};
 }
@@ -93,7 +93,11 @@ std::vector<double> Matrix::Kholetskiy() {
 	for (std::size_t i = 1; i < sz; ++i) {
 		for (std::size_t j = 1; j < sz; ++j) {
 			if (i == 2 and j == 2) {
-				mtr[i].at(j) -= (mtr[i].at(0) * mtr[0].at(j) - mtr[i - 1].at(j) * abs(mtr[i].at(j - 1)));
+				auto v1 = mtr[i].at(0);
+				auto v2 = mtr[0].at(j);
+				auto v3 = mtr[i - 1].at(j);
+				auto v4 = mtr[i].at(j - 1);
+				mtr[i].at(j) -= (mtr[i].at(0) * mtr[0].at(j) + mtr[i - 1].at(j) * mtr[i].at(j - 1));
 				break;
 			}
 			mtr[i].at(j) -= mtr[i].at(0) * mtr[0].at(j);
@@ -135,7 +139,7 @@ std::vector<double> Matrix::Kholetskiy() {
 
 	x.push_back(y[2]);
 	x.push_back(y[1] - (C.mtr[1].at(2) * y[2]));
-	x.push_back(y[0] -(C.mtr[0].at(1) * abs(x[1]) + C.mtr[0].at(2) * y[2]));
+	x.push_back(y[0] -(C.mtr[0].at(1) * x[1] + C.mtr[0].at(2) * y[2]));
 
 	std::reverse(x.begin(), x.end());
 
